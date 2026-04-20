@@ -1,7 +1,7 @@
 const authService = require('../services/authService');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const generateToken = require('../utils/generateToken');
 
 class AuthController {
   async register(req, res) {
@@ -23,11 +23,7 @@ class AuthController {
     const isMatch = await bcrypt.compare(senha, user.senha);
     if (!isMatch) return res.status(400).json({ error: 'Senha incorreta' });
 
-    const token = jwt.sign(
-      { id: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
-    );
+    const token = generateToken(user._id);
 
     const { nomeCompleto, cpf, dataNascimento, plano } = user;
 
