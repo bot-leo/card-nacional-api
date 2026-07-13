@@ -3,121 +3,68 @@ const router = express.Router();
 const authController = require('../controllers/authController');
 
 /**
- * @swagger
- * components:
- *   schemas:
- *     User:
- *       type: object
- *       required:
- *         - nomeCompleto
- *         - cpf
- *         - dataNascimento
- *         - email
- *         - senha
- *       properties:
- *         nomeCompleto:
- *           type: string
- *           description: Nome completo do usuário
- *         cpf:
- *           type: string
- *           description: CPF do usuário
- *         dataNascimento:
- *           type: string
- *           format: date
- *           description: Data de nascimento do usuário
- *         email:
- *           type: string
- *           format: email
- *           description: Email do usuário
- *         senha:
- *           type: string
- *           description: Senha do usuário
- *     AuthResponse:
- *       type: object
- *       properties:
- *         token:
- *           type: string
- *           description: Token JWT de autenticação
- *         user:
- *           $ref: '#/components/schemas/User'
- *     Error:
- *       type: object
- *       properties:
- *         error:
- *           type: string
- *           description: Mensagem de erro
- */
-
-/**
- * @swagger
+ * @openapi
  * /auth/register:
  *   post:
- *     summary: Registrar um novo usuário
- *     tags: [Auth]
+ *     tags:
+ *       - Auth
+ *     summary: Cadastra um novo usuario
+ *     description: Cria o usuario e retorna um token JWT com expiração configurada.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/User'
+ *             $ref: '#/components/schemas/RegisterRequest'
  *     responses:
  *       201:
- *         description: Usuário registrado com sucesso
+ *         description: Usuario cadastrado com sucesso
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/AuthResponse'
  *       400:
- *         description: Erro de validação
+ *         description: Erro de validacao ou usuario ja existente
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error'
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/register', authController.register);
 
 /**
- * @swagger
+ * @openapi
  * /auth/login:
  *   post:
- *     summary: Fazer login
- *     tags: [Auth]
+ *     tags:
+ *       - Auth
+ *     summary: Realiza login do usuario
+ *     description: Autentica credenciais e retorna token JWT para acesso a endpoints protegidos.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - email
- *               - senha
- *             properties:
- *               email:
- *                 type: string
- *                 format: email
- *                 description: Email do usuário
- *               senha:
- *                 type: string
- *                 description: Senha do usuário
+ *             $ref: '#/components/schemas/LoginRequest'
  *     responses:
  *       200:
  *         description: Login realizado com sucesso
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/AuthResponse'
+ *               $ref: '#/components/schemas/LoginResponse'
  *       400:
- *         description: Credenciais inválidas
+ *         description: Credenciais invalidas
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error'
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
- *         description: Erro interno do servidor
+ *         description: Erro interno no servidor
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error'
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/login', authController.login);
 
