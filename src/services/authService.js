@@ -20,7 +20,7 @@ class AuthService {
     });
 
     const token = generateToken(user._id);
-    return { token };
+    return { token, registerCar: user.registerCar };
   }
 }
 

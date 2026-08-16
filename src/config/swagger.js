@@ -19,6 +19,10 @@ const swaggerDefinition = {
       name: 'Auth',
       description: 'Endpoints de autenticacao',
     },
+    {
+      name: 'Carro',
+      description: 'Gestao do veiculo vinculado ao usuario',
+    },
   ],
   components: {
     securitySchemes: {
@@ -52,12 +56,14 @@ const swaggerDefinition = {
         type: 'object',
         properties: {
           token: { type: 'string', example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' },
+          registerCar: { type: 'boolean', example: false, description: 'Indica se o usuário já possui veículo cadastrado' },
         },
       },
       LoginResponse: {
         type: 'object',
         properties: {
           token: { type: 'string', example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' },
+          registerCar: { type: 'boolean', example: true, description: 'Indica se o usuário já possui veículo cadastrado' },
           user: {
             type: 'object',
             properties: {
@@ -74,6 +80,31 @@ const swaggerDefinition = {
         type: 'object',
         properties: {
           error: { type: 'string', example: 'Mensagem de erro' },
+        },
+      },
+      CarroRequest: {
+        type: 'object',
+        required: ['marca', 'modelo', 'ano', 'cor', 'placa'],
+        properties: {
+          marca: { type: 'string', example: 'Volkswagen' },
+          modelo: { type: 'string', example: 'Gol' },
+          ano: { type: 'integer', example: 2020 },
+          cor: { type: 'string', example: 'Prata' },
+          placa: { type: 'string', example: 'ABC1D23' },
+        },
+      },
+      CarroResponse: {
+        type: 'object',
+        properties: {
+          _id: { type: 'string', example: '64f1a2b3c4d5e6f7a8b9c0d1' },
+          usuario: { type: 'string', example: '64f1a2b3c4d5e6f7a8b9c0d2' },
+          marca: { type: 'string', example: 'Volkswagen' },
+          modelo: { type: 'string', example: 'Gol' },
+          ano: { type: 'integer', example: 2020 },
+          cor: { type: 'string', example: 'Prata' },
+          placa: { type: 'string', example: 'ABC1D23' },
+          createdAt: { type: 'string', format: 'date-time' },
+          updatedAt: { type: 'string', format: 'date-time' },
         },
       },
     },

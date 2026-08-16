@@ -25,10 +25,11 @@ class AuthController {
 
     const token = generateToken(user._id);
 
-    const { nomeCompleto, cpf, dataNascimento, plano } = user;
+    const { nomeCompleto, cpf, dataNascimento, plano, registerCar } = user;
 
     res.status(200).json({
       token,
+      registerCar,
       user: { nomeCompleto, cpf, dataNascimento, email, plano }
     });
   } catch (error) {
