@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const CarSchema = new mongoose.Schema({
   usuario: {
     type: mongoose.Schema.Types.ObjectId,
