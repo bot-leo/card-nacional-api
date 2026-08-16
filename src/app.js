@@ -25,6 +25,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
 }));
 
 const authRoutes = require('./routes/authRoutes');
+const carRoutes = require('./routes/carRoutes');
+
 app.use('/auth', authRoutes);
+app.use('/carro', carRoutes);
 
 module.exports = app;

@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
   dataNascimento: { type: Date, required: true },
   email: { type: String, required: true, unique: true },
   senha: { type: String, required: true },
+  registerCar: { type: Boolean, default: false },
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', UserSchema);
