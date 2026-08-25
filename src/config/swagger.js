@@ -1,3 +1,10 @@
+// Este arquivo delega para swagger.ts (fonte da verdade).
+// Existe apenas para garantir compatibilidade com a resolução de módulos do Node.js,
+// que prefere .js sobre .ts ao usar require() sem extensão.
+module.exports = require('./swagger.ts');
+
+// ---- conteúdo legado preservado abaixo (não executado) ----
+// eslint-disable-next-line no-unreachable
 const path = require('path');
 const swaggerJSDoc = require('swagger-jsdoc');
 
@@ -116,4 +123,4 @@ const options = {
   apis: [path.join(__dirname, '../routes/*.js')],
 };
 
-module.exports = swaggerJSDoc(options);
+// module.exports = swaggerJSDoc(options); // substituído pelo redirect acima
